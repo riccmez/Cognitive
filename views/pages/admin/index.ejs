@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+<body>
+    <div class="sidebar">
+      <center><h3>Admin</h3></center>
+      <hr style="margin: 0px; padding:0px">
+      <a class="active" href="/admin"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      <a href="/info"><i class="bi bi-info-circle"></i> Clientes</a>
+      <a href="/sensores"><i class="bi bi-phone-vibrate"></i> Tareas</a>
+    </div>
+    <%- include('../../partials/message'); %>
+    
+    <script>
+      var close = document.getElementsByClassName("closebtn");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+          var div = this.parentElement;
+          div.style.opacity = "0";
+          setTimeout(function(){ div.style.display = "none"; }, 200);
+        }
+      }
+      </script>
+  </body>
+</html>

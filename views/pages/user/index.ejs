@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/head'); %>
+<head>
+
+<body class="bg-dark" style="background-color: rgb(0, 0, 0) !important;">
+    
+    <div style="background-color: rgb(0, 0, 0) !important;"class="container w-100  mb-2 bg-dark">
+
+        <section class="vh-100">
+            <div class="container p-4 h-100">
+              <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <div id="vid" class="anim">
+                        <video style="border-radius:20px;" id="vid" width=100% loop="true" autoplay="autoplay"  muted>
+                            <source src="img/preview.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <div class=" p-4 col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                  <div class="card p-4">
+                    <h2>Iniciar Sesión</h2>
+                  <br>
+                    <%- include('../../partials/message'); %>
+                    <form action="/SignIn" method="post">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <input type="email" name="email" id="form1Example13" class="form-control form-control-lg" />
+                      <label class="form-label" for="form1Example13">Email address</label>
+                    </div>
+          
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input type="password" name="password" id="form1Example23" class="form-control form-control-lg" />
+                      <label class="form-label" for="form1Example23">Password</label>
+                    </div>
+          
+                    <div class="d-flex justify-content-around align-items-center mb-4">
+                      <a href="/register">Registrar </a> <a href="#!"> Restablecer contraseña </a>
+                    </div>
+          
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+          
+                  </form>
+                </div>
+
+                  </div>
+                </div>
+            </div>
+          </section>
+
+    </div>
+
+    <script>
+        // Variables
+        let Log_button = document.getElementById("login_btn");
+        // Functions
+        Log_button.onclick = function(){window.location.href = `/admin`}
+    </script>
+</body>
+</html>
