@@ -2,6 +2,8 @@ const { PredictionAPIClient } = require("@azure/cognitiveservices-customvision-p
 const { ApiKeyCredentials } = require("@azure/ms-rest-js");
 const fs = require('fs');
 const path = require('path');
+const request = require('./models/requests')
+const router = require('express').Router();
 module.exports = io => {
   io.on('connection', socket => {
     console.log('new socket connected');
@@ -10,6 +12,11 @@ module.exports = io => {
   socket.on('ReceiveImURL',URL =>{
     CustomVision(URL.link);
   })
+
+  function subtractHours(numOfHours, date = new Date()) {
+    date.setHours(date.getHours() - numOfHours);
+    return date;
+  }
 
   async function CustomVision(customUrl) {
     const customVisionPredictionKey = "f31056a81ea4427f9a03eeaa0f6e611b";
@@ -31,6 +38,27 @@ module.exports = io => {
         console.error(err);
         socket.emit('CustomV',{error:'bad Url'});
       });
+      var dateEntry = subtractHours(5);
+      request.findOne().sort({'_id':-1}).limit(1).exec(async (err,result)=>{
+        if (result == null){
+          var newReq = new request({
+            Id: 1,
+            time: dateEntry
+          })
+          newReq.save((err)=>{
+            if(err){console.error(err)}
+          })
+        }
+        else{
+          var newReq = new request({
+            Id: (result.Id + 1),
+            time: new Date()
+          })
+          newReq.save((err)=>{
+            if(err){console.error(err)}
+          })
+        }
+      })
   }
 });
 };

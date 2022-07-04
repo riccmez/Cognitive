@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+<body>
+    <div class="sidebar">
+      <center><h3>Admin</h3></center>
+      <hr style="margin: 0px; padding:0px">
+      <a href="/admin"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      <a class="active" href="/Clients"><i class="bi bi-people"></i> Clientes</a>
+      <a href="/Stats"><i <i class="bi bi-clipboard-data"></i> Estadísticas</a>
+    </div>
+    <%- include('../../partials/message'); %>
+    
+    <div class="content">
+      <h2>Clientes</h2>
+      <br>
+      <h4>Overview</h4>
+      <div class="overview">
+        <table class="table">
+            <tbody>
+              <tr>
+                <td><b>Número de Clientes Registrados :</b></td>
+                <td><%-clt%></td>
+              </tr>
+              <tr>
+                <td><b>Número de Requests del Día :</b></td>
+                <td><%-requests%></td>
+              </tr>
+              <tr>
+                <td><b>Número de Mensajes del Día :</b></td>
+                <td><%-msgs%></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <br>
+      <h4>Mensajes</h4>
+      
+    </div>
+
+    <script>
+      var close = document.getElementsByClassName("closebtn");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+          var div = this.parentElement;
+          div.style.opacity = "0";
+          setTimeout(function(){ div.style.display = "none"; }, 200);
+        }
+      }
+      </script>
+  </body>
+</html>

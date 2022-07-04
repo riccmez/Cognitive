@@ -28,15 +28,20 @@ navigator.mediaDevices.getUserMedia({video: true}) // request cam
 });
 
 function handleImage(e){
+  loader.style.display = "block";
+  let con = document.getElementById("cons");
+  con.innerHTML = `
+      <p style="color:rgb(0,0,0)" id="cons"> analizando ... </p>
+      `
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   modal.style.display = "block";
   var reader = new FileReader();
   reader.onload = async function(event){
       var img = new Image();
       img.onload = function(){
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img,0,0);
+          canvas.width = 460;
+          canvas.height = 365;
+          ctx.drawImage(img, 0,0,460,365);
       }
       img.src = event.target.result;
   }
@@ -44,6 +49,10 @@ function handleImage(e){
 }
 
 const onFileSelected = async (event) => {
+  let con = document.getElementById("cons");
+  con.innerHTML = `
+      <p style="color:rgb(0,0,0)" id="cons"> analizando ... </p>
+      `
   const [ file ]    = event.target.files;
   const { fileUrl } = await upload.uploadFile({ file, onProgress });
   // console.log(`File uploaded: ${fileUrl}`);
@@ -53,14 +62,17 @@ const onFileSelected = async (event) => {
 
 function takeASnap(){
     // const ctx = canvas.getContext('2d'); // get its context
+    loader.style.display = "block";
+    modal.style.display = "block";
+    let con = document.getElementById("cons");
+    con.innerHTML = `
+        <p style="color:rgb(0,0,0)" id="cons"> analizando ... </p>
+        `
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = vid.videoWidth; // set its size to the one of the video
     canvas.height = vid.videoHeight;
     ctx.drawImage(vid, 0,0); // the video
     canvas.toBlob(async (blob)=>{
-      // let fd = new FormData();
-      // fd.append('upl',blob,'image.jpg');
-      // fetch('/sendImg',{method:'post',body:fd});
       const { fileUrl } = await upload.uploadFile({ 
       file:{
         name:'image',
@@ -102,9 +114,9 @@ close.addEventListener('click',()=>{
 
 function btnLink(){
   loader.style.display = "block";
+  modal.style.display = "block";
   let con = document.getElementById("cons");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  modal.style.display = "block";
   con.innerHTML = `
       <p style="color:rgb(0,0,0)" id="cons"> analizando ... </p>
       `

@@ -8,11 +8,72 @@
       <center><h3>Admin</h3></center>
       <hr style="margin: 0px; padding:0px">
       <a class="active" href="/admin"><i class="bi bi-speedometer2"></i> Dashboard</a>
-      <a href="/info"><i class="bi bi-info-circle"></i> Clientes</a>
-      <a href="/sensores"><i class="bi bi-phone-vibrate"></i> Tareas</a>
+      <a href="/Clients"><i class="bi bi-people"></i> Clientes</a>
+      <a href="/Stats"><i <i class="bi bi-clipboard-data"></i> Estadísticas</a>
     </div>
     <%- include('../../partials/message'); %>
     
+    <div class="content">
+      <h2>Dashboard</h2>
+      <br>
+      <h4>Estadísticas</h4>
+      <br>
+      <h4>Mensajes</h4>
+      <%if(msgs < 10 && msgs > 0){%>
+        <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show " role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+          <div>
+            Hay algunos <a class="alert-link"> mensajes </a> de clientes
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <%}%>
+      <%if(requests < 20 ){%>
+        <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show " role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+          <div>
+            Se ha utilizado del <%-requests%>% del servicio 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <%}%>
+      <%if( requests > 20 && requests < 40 ){%>
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            El servicio se ha utilizado <%-requests%>% del servicio
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <%}%>
+      <%if( requests > 40 && requests < 60 ){%>
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            El servicio se ha utilizado <%-requests%>% del 60% del servicio
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <%}%>
+      <%if( requests > 60 && requests < 80 ){%>
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            El servicio se ha utilizado <%-requests%>% del servicio
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <%}%>
+      <%if(requests > 80 ){%>
+        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            El servicio está al <%-requests%>% el uso se puede pasar del máximo
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      <%}%>
+    </div>
+
     <script>
       var close = document.getElementsByClassName("closebtn");
       var i;

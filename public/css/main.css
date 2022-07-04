@@ -46,7 +46,13 @@ div.content {
     padding: 1px 16px;
     height: 1000px;
 }
-
+.overview{
+    padding: 25px;
+}
+.overview p{
+    /* float: right; */
+    justify-items: left;
+}
 .sidebarImg{
     margin: 0px;
     padding: 0px;
@@ -185,14 +191,13 @@ nav a{
     color: white;
   }
   
-  .modal-body {padding: 2px 16px;}
+.modal-body {padding: 2px 16px;}
   
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
-  
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
 
 @media screen and (max-width: 400px) {
   .sidebar a {
