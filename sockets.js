@@ -13,10 +13,72 @@ module.exports = io => {
     CustomVision(URL.link);
   })
 
+  socket.on('GetData',msg=>{
+    filtered(7);
+  })
+
   function subtractHours(numOfHours, date = new Date()) {
     date.setHours(date.getHours() - numOfHours);
     return date;
   }
+
+  var getDateArray = function(start, end) {
+
+    var
+      arr = new Array(),
+      dt = new Date(start);
+  
+    while (dt <= end) {
+      arr.push(new Date(dt));
+      dt.setDate(dt.getDate() + 1);
+    }
+  
+    return arr;
+  
+  }
+
+  function format_date(date = new Date()){
+    let fecha_hora = (date.getFullYear()).toString();
+    if(date.getMonth() <10)
+    fecha_hora += '-'+'0'+ (date.getMonth()+1).toString();
+    else
+      fecha_hora += '-'+(date.getMonth()+1).toString();
+    if(date.getDay() <10)
+      fecha_hora += '-0'+(date.getDate()).toString();
+    else
+    fecha_hora += '-'+(date.getDate()).toString();
+    return fecha_hora;
+  }
+  
+  function filtered(days){
+    var today = new Date(new Date().getTime() + (2* 24 * 60 * 60 * 1000))
+    today.setHours(0,0,0,0);
+    var week_ago = new Date(today.getTime()  - (days * 24 * 60 * 60 * 1000));
+    let collection = getDateArray(week_ago, today)
+    let _data = [];
+    let idx = 0;
+    let idx2 = 0;
+    for(var i = 0; i < collection.length - 1 ; i++){
+      request.find({time:{$gte:format_date(collection[idx]), $lt:format_date(collection[idx+1])}}).exec((err,entry)=>{
+        if(err) console.error(err);
+        _data.push([Date.parse(collection[idx2]) , entry.length])
+        idx2++;
+        if (idx2 == collection.length - 1){
+          // console.log(_data)
+          let msg = {data:_data}; 
+          socket.emit('Showdata',msg);
+        }
+      })
+      idx++;
+    }
+  }
+
+  function subtractTimeFromDate(objDate, intHours) {
+    var numberOfMlSeconds = objDate.getTime();
+    var addMlSeconds = (intHours * 60) * 60000;
+    var newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+    return newDateObj;
+}
 
   async function CustomVision(customUrl) {
     const customVisionPredictionKey = "f31056a81ea4427f9a03eeaa0f6e611b";
@@ -52,7 +114,7 @@ module.exports = io => {
         else{
           var newReq = new request({
             Id: (result.Id + 1),
-            time: new Date()
+            time: subtractTimeFromDate(new Date(),5)
           })
           newReq.save((err)=>{
             if(err){console.error(err)}
