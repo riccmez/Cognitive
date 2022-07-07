@@ -6,6 +6,27 @@ const msgs = require('../models/Msg')
 const request = require('../models/requests')
 const path = require('path');
 
+const { format, register } = require('timeago.js')
+
+register('es_ES', (number, index, total_sec) => [
+    ['justo ahora', 'ahora mismo'],
+    ['hace %s segundos', 'en %s segundos'],
+    ['hace 1 minuto', 'en 1 minuto'],
+    ['hace %s minutos', 'en %s minutos'],
+    ['hace 1 hora', 'en 1 hora'],
+    ['hace %s horas', 'in %s horas'],
+    ['hace 1 dia', 'en 1 dia'],
+    ['hace %s dias', 'en %s dias'],
+    ['hace 1 semana', 'en 1 semana'],
+    ['hace %s semanas', 'en %s semanas'],
+    ['1 mes', 'en 1 mes'],
+    ['hace %s meses', 'en %s meses'],
+    ['hace 1 año', 'en 1 año'],
+    ['hace %s años', 'en %s años']
+][index]);
+
+const timeago = timestamp => format(timestamp, 'es_ES');
+
 
 router.get('/',isNotLoggedIn,(req, res) => {
   res.render('pages/user/index');
@@ -70,11 +91,15 @@ router.get('/Clients',isLoggedIn,(req, res) => {
     else{
       msgs.find((err,result)=>{
         if(err)console.error(err)
+        let timeStamp = [];
+        for(var i = 0; i < result.length; i++){
+          timeStamp[i] =  timeago(result[i].time).toString();
+        }
         var date =  format_date(new Date());
         request.find({time:{$gte:date}}).exec((er,entry)=>{
           if(err) console.error(err);
           user.find((e,clt)=>{
-            res.render('pages/admin/clients',{clt:clt.length,msgs:result.length,requests:entry.length});
+            res.render('pages/admin/clients',{clt:clt.length,msgs:result.length,requests:entry.length,msg:result,timeStp:timeStamp});
           })
         })
       })
@@ -84,6 +109,35 @@ router.get('/Clients',isLoggedIn,(req, res) => {
 })
 
 router.post('/SendMsg',messages.create)
+
+router.post('/Res/:id',(req,res)=>{
+  if (req.body.response == ""){
+    req.flash('message')
+  }
+  res.redirect(`/msgDet/${req.params.id}`)
+})
+
+router.get('/msgDet/:id',(req,res)=>{
+  let id = req.user._conditions._id;
+  user.findById(id).exec(async (err,result)=>{
+    if(err) console.error(err);
+    if(result.root == 'no')
+    res.send('Credentials not valid')
+    else{
+      msgs.findById(req.params.id).exec((err,result)=>{
+        let detail = {
+          id:req.params.id,
+          email: result.email,
+          content: result.content,
+          time: (result.time).toString(),
+          stamp: timeago(result.time).toString()
+        }
+        res.render('pages/admin/msgDetail',{detail})
+      })
+
+    }
+  })
+})
 
 router.get('/Logout', isLoggedIn ,(req,res) =>{
   req.logout(function(err) {

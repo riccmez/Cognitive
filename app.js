@@ -1,10 +1,10 @@
 const express = require('express');
-const app = express();
 const engine = require('ejs-mate');
 const path = require('path');
 const http = require('http');
 const config = require('./config');
 const db = require('./db');
+const app = express();
 const server = http.Server(app);
 const morgan = require('morgan');
 const passport = require('passport');
@@ -14,7 +14,6 @@ const session = require('express-session');
 const MongoDBStore = require('express-mongodb-session')(session);
 const socketIO = require('socket.io');
 const io = socketIO(server);
-// const multer = require('multer');
 
 require('./lib/passport')
 

@@ -29,7 +29,7 @@
                 <td><%-requests%></td>
               </tr>
               <tr>
-                <td><b>Número de Mensajes del Día :</b></td>
+                <td><b>Número de Mensajes por responder :</b></td>
                 <td><%-msgs%></td>
               </tr>
             </tbody>
@@ -37,9 +37,25 @@
       </div>
       <br>
       <h4>Mensajes</h4>
+      <br>
+      <div class="row">
+
+        <% for(var i=0; i< msgs; i++){%>
+          <div class="col-sm-6">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+              <div class="card-header"> <%-timeStp[i]%> </div>
+              <div class="card-body">
+                <h6><%-msg[i].email%></h6>
+                <p class="card-text"> <%-msg[i].content%></p>
+                <a class="btn btn-primary" href="/msgDet/<%-msg[i]._id%>">ver detalle</a>
+              </div>
+              </div>
+            </div>
+        <%}%>
+      </div>
       
     </div>
-
+    <script href="dist/timeago.min.js"></script>
     <script>
       var close = document.getElementsByClassName("closebtn");
       var i;
