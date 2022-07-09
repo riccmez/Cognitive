@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../../partials/head'); %>
 </head>
+
 <body>
 
     <nav style="color:white;" class="navbar navbar-dark bg-dark">
@@ -12,42 +14,47 @@
                 <path d="M8 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm7 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
             </svg>
             <h5 style="display:inline;"> Quality Assurance</h5>
-            <a  
-               href="/user"> Home </a>
-            <a 
-               href="/CustomerService"> Customer Service</a>
-            <a 
-               href="/Logout"> Salir</a>
+            <a href="/user"> Home </a>
+            <a href="/CustomerService"> Customer Service</a>
+            <a href="/Logout"> Salir</a>
         </div>
     </nav>
 
     <div class="container p-4">
-        <center> <h2> Servicio al Cliente </h2></center>            
+        <center>
+            <h2> Servicio al Cliente </h2>
+        </center>
         <div class="container p-5">
             <center>
                 <%- include('../../partials/message'); %>
             </center>
             <form action="/SendMsg" method="post">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Email address</label> <br>
-                  <center>
-                  <input type="email" class="form-control" name="email" placeholder="name@example.com">
-                </center>
+                    <label for="exampleFormControlInput1">Titulo</label> <br>
+                    <center>
+                        <input type="text" name="title" class="form-control" required/>
+                    </center>
                 </div><br>
                 <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Escriba su mensaje</label><br>
-                  <center>
-                  <textarea class="form-control" name="content" rows="5"></textarea>
-                </center>
+                    <label for="exampleFormControlTextarea1">Escriba su mensaje</label><br>
+                    <center>
+                        <textarea class="form-control" name="content" rows="5"></textarea>
+                    </center>
                 </div><br>
-
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Tu contacto</label> <br>
+                    <center>
+                        <input type="email" class="form-control" name="email" placeholder="contacto@ejemplo.com">
+                    </center>
+                </div><br>
                 <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+            </form>
 
         </div>
 
 
     </div>
-    
+
 </body>
+
 </html>

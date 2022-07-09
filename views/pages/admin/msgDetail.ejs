@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../../partials/head'); %>
 </head>
+
 <body>
     <div class="sidebar">
-      <center><h3>Admin</h3></center>
-      <hr style="margin: 0px; padding:0px">
-      <a href="/admin"><i class="bi bi-speedometer2"></i> Dashboard</a>
-      <a class="active" href="/Clients"><i class="bi bi-people"></i> Clientes</a>
-      <a href="/Stats"><i <i class="bi bi-clipboard-data"></i> Estadísticas</a>
+        <center>
+            <h3>Admin</h3>
+        </center>
+        <hr style="margin: 0px; padding:0px">
+        <a href="/admin"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a class="active" href="/Clients"><i class="bi bi-people"></i> Clientes</a>
+        <a href="/Stats"><i <i class="bi bi-clipboard-data"></i> Estadísticas</a>
     </div>
     <%- include('../../partials/message'); %>
-    
-    <div class="content">
-        <br>
-        <h4>Detalle del Mensaje</h4>
-        <br>
-        <div class="container p-4">
-            <div class="card">
-                <div class="card-header">
-                  <b>Usuario:</b> <%-detail.email%></b>
-                </div>
-                <div class="card-body">
-                    <p class="card-text"> <b>Enviado: </b><%-detail.stamp%></p>
-                  <p class="card-text"> <b>Contenido: </b><%-detail.content%> </p>
-                  <p class="card-text"> <b>Fecha Exacta: </b><%-detail.time%></p>
-                  <form action="/Res/<%-detail.id%>" method="post">
-                  <div class="input-group">
-                    <span class="input-group-text">Respuesta</span>
-                    <textarea name="response" class="form-control" aria-label="With textarea"></textarea>
-                  </div><br>
-                  <button type="submit" class="btn btn-primary">Responder</button>
-                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">Borrar</button>
-                  </form>
-                </div>
-              </div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><b>Importante</b></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Seguro que desea borrar el mensaje
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="/Del/<%-detail.id%>" class="btn btn-warning">Borrar</a>
+
+        <div class="content">
+            <br>
+            <h4>Detalle del Mensaje</h4>
+            <br>
+            <div class="container p-4">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Titulo:</b>
+                        <%-detail.title%>
+                            </b>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> <b>Respondiendo al correo </b>
+                            <%-detail.email%>
+                        </p>
+                        <p class="card-text"> <b>Enviado </b>
+                            <%-detail.stamp%>
+                        </p>
+                        <p class="card-text"> <b>Contenido: </b>
+                            <%-detail.content%>
+                        </p>
+                        <p class="card-text"> <b>Fecha Exacta: </b>
+                            <%-detail.time%>
+                        </p>
+                        <form action="/Res/<%-detail.id%>" method="post">
+                            <div class="input-group">
+                                <span class="input-group-text">Respuesta</span>
+                                <textarea name="response" class="form-control" aria-label="With textarea"></textarea>
+                            </div><br>
+                            <button type="submit" class="btn btn-primary">Responder</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            </div>
+
         </div>
-    </div>
-    <script href="dist/timeago.min.js"></script>
-    <script>
-      var close = document.getElementsByClassName("closebtn");
-      var i;
-      for (i = 0; i < close.length; i++) {
-        close[i].onclick = function(){
-          var div = this.parentElement;
-          div.style.opacity = "0";
-          setTimeout(function(){ div.style.display = "none"; }, 200);
-        }
-      }
-      </script>
-  </body>
+        <script href="dist/timeago.min.js"></script>
+        <script>
+            var close = document.getElementsByClassName("closebtn");
+            var i;
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.opacity = "0";
+                    setTimeout(function() {
+                        div.style.display = "none";
+                    }, 200);
+                }
+            }
+        </script>
+</body>
+
 </html>
